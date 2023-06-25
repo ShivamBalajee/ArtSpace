@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ item.name }}{% endblock %}
+
+{% block content %}
+    <div class="grid grid-cols-5 bg-gradient-to-r from-rose-300 to rose-200">
+    <div class="col-span-3">
+        <img src="{{ item.image.url }}" class="rounded-xl">
+    </div>
+    <div class="col-span-2 p-6 bg-gradient-to-r from-rose-200 to rose-100 rounded-xl">
+        <h1 class="mb-2 text-3xl">{{ item.name }} </h1>
+        <p class ="mb-6 text-2-xl"><strong>Price - </strong>{{ item.price }} USD</p>
+        <p class ="mb-6 text-2-xl"><strong>Seller - </strong>{{ item.created_by.username }} </p>
+        {% if item.description %}
+        <p class ="mb-6 text-xl italic"> {{ item.description }}</p>
+        {% endif %}
+    <a href="#" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact seller</a>
+    </div>
+    </div>
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl ">
+ <h2 class="mb-12 text-2xl text-center font-semibold">Related Items</h2>
+ <div class="grid grid-cols-3 gap-3 ">
+     {% for item in related_item %}
+         <div>
+         <a href="{% url 'item:detail' item.id %}">
+             <div class="bg-gradient-to-r from-teal-500 to-teal-100 ">
+                 <img src="{{ item.image.url }}" class="inline-flex w-50 h-50 rounded-t rounded-b mx-20">
+             </div>
+             <div class="p-6 bg-gradient-to-r from-blue-300 to blue-200 rounded-b-xl rounded-t-xl hover:bg-blue-100">
+                 <h2 class="text-xl text-center font-semibold">{{ item.name }} : {{ item.price }} USD</h2>
+             </div>
+         </a>
+         </div>
+     {% endfor %}
+ </div>
+ </div>
+{% endblock %}
